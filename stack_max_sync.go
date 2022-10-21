@@ -76,7 +76,6 @@ func (x *SyncMaxStack[T]) String() string {
 	return x.stack.String()
 }
 
-
 func (x *SyncMaxStack[T]) GetMax() T {
 	x.lock.RLock()
 	defer x.lock.RLock()
