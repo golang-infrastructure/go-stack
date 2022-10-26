@@ -2,6 +2,7 @@ package stack
 
 type LinkedStack[T any] struct {
 	top *Node[T]
+	ln  int
 }
 
 var _ Stack[any] = &LinkedStack[any]{}
@@ -23,6 +24,7 @@ func (x *LinkedStack[T]) Push(values ...T) error {
 			node.next = x.top
 			x.top = node
 		}
+		x.ln++
 	}
 	return nil
 }
@@ -38,9 +40,10 @@ func (x *LinkedStack[T]) PopE() (T, error) {
 	}
 	top := x.top
 	x.top = x.top.next
+	value := top.value
 	top.next = nil
 	top.value = nil
-	value := top.value
+	x.ln--
 	return value, nil
 }
 
@@ -65,17 +68,12 @@ func (x *LinkedStack[T]) IsNotEmpty() bool {
 }
 
 func (x *LinkedStack[T]) Len() int {
-	count := 0
-	node := x.top
-	for node != nil {
-		count++
-		node = node.next
-	}
-	return count
+	return x.ln
 }
 
 func (x *LinkedStack[T]) Clear() error {
 	x.top = nil
+	x.ln = 0
 	return nil
 }
 
