@@ -1,6 +1,9 @@
 package stack
 
+// Stack 定义栈的API
 type Stack[T any] interface {
+
+	// Push 往栈中加入元素
 	Push(values ...T) error
 
 	Pop() T
