@@ -84,7 +84,7 @@ IsNotEmpty() bool
 ## 栈中元素个数
 
 ```
-Len() int
+Size() int
 ```
 
 

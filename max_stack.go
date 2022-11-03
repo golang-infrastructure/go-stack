@@ -44,7 +44,8 @@ func (x *MaxStack[T]) Pop() T {
 func (x *MaxStack[T]) PopE() (T, error) {
 	e, err := x.stack.PopE()
 	if err != nil {
-		return nil, err
+		var zero T
+		return zero , err
 	}
 	return e.value, nil
 }
@@ -57,7 +58,8 @@ func (x *MaxStack[T]) Peek() T {
 func (x *MaxStack[T]) PeekE() (T, error) {
 	e, err := x.stack.PeekE()
 	if err != nil {
-		return nil, err
+		var zero T
+		return zero, err
 	}
 	return e.value, nil
 }
@@ -70,8 +72,8 @@ func (x *MaxStack[T]) IsNotEmpty() bool {
 	return x.stack.IsNotEmpty()
 }
 
-func (x *MaxStack[T]) Len() int {
-	return x.stack.Len()
+func (x *MaxStack[T]) Size() int {
+	return x.stack.Size()
 }
 
 func (x *MaxStack[T]) Clear() error {
@@ -90,7 +92,8 @@ func (x *MaxStack[T]) GetMax() T {
 func (x *MaxStack[T]) GetMaxE() (T, error) {
 	e, err := x.stack.PeekE()
 	if err != nil {
-		return nil, err
+		var zero T
+		return zero, err
 	}
 	return e.max, nil
 }

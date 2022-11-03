@@ -36,13 +36,15 @@ func (x *LinkedStack[T]) Pop() T {
 
 func (x *LinkedStack[T]) PopE() (T, error) {
 	if x.top == nil {
-		return nil, ErrStackEmpty
+		var zero T
+		return zero, ErrStackEmpty
 	}
 	top := x.top
 	x.top = x.top.next
 	value := top.value
 	top.next = nil
-	top.value = nil
+	var zero T
+	top.value = zero
 	x.ln--
 	return value, nil
 }
@@ -54,7 +56,8 @@ func (x *LinkedStack[T]) Peek() T {
 
 func (x *LinkedStack[T]) PeekE() (T, error) {
 	if x.top == nil {
-		return nil, ErrStackEmpty
+		var zero T
+		return zero, ErrStackEmpty
 	}
 	return x.top.value, nil
 }
@@ -67,7 +70,7 @@ func (x *LinkedStack[T]) IsNotEmpty() bool {
 	return x.top != nil
 }
 
-func (x *LinkedStack[T]) Len() int {
+func (x *LinkedStack[T]) Size() int {
 	return x.ln
 }
 

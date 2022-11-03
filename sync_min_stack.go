@@ -58,10 +58,10 @@ func (x *SyncMinStack[T]) IsNotEmpty() bool {
 	return x.stack.IsNotEmpty()
 }
 
-func (x *SyncMinStack[T]) Len() int {
+func (x *SyncMinStack[T]) Size() int {
 	x.lock.RLock()
 	defer x.lock.RLock()
-	return x.stack.Len()
+	return x.stack.Size()
 }
 
 func (x *SyncMinStack[T]) Clear() error {

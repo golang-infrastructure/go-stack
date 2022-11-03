@@ -58,10 +58,10 @@ func (x *SyncArrayStack[T]) IsNotEmpty() bool {
 	return x.stack.IsNotEmpty()
 }
 
-func (x *SyncArrayStack[T]) Len() int {
+func (x *SyncArrayStack[T]) Size() int {
 	x.lock.RLock()
 	defer x.lock.RLock()
-	return x.stack.Len()
+	return x.stack.Size()
 }
 
 func (x *SyncArrayStack[T]) Clear() error {

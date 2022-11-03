@@ -44,7 +44,8 @@ func (x *MinStack[T]) Pop() T {
 func (x *MinStack[T]) PopE() (T, error) {
 	e, err := x.stack.PopE()
 	if err != nil {
-		return nil, err
+		var zero T
+		return zero, err
 	}
 	return e.value, nil
 }
@@ -57,7 +58,8 @@ func (x *MinStack[T]) Peek() T {
 func (x *MinStack[T]) PeekE() (T, error) {
 	e, err := x.stack.PeekE()
 	if err != nil {
-		return nil, err
+		var zero T
+		return zero, err
 	}
 	return e.value, nil
 }
@@ -70,8 +72,8 @@ func (x *MinStack[T]) IsNotEmpty() bool {
 	return x.stack.IsNotEmpty()
 }
 
-func (x *MinStack[T]) Len() int {
-	return x.stack.Len()
+func (x *MinStack[T]) Size() int {
+	return x.stack.Size()
 }
 
 func (x *MinStack[T]) Clear() error {
@@ -90,7 +92,8 @@ func (x *MinStack[T]) GetMin() T {
 func (x *MinStack[T]) GetMinE() (T, error) {
 	e, err := x.stack.PeekE()
 	if err != nil {
-		return nil, err
+		var zero T
+		return zero, err
 	}
 	return e.min, nil
 }

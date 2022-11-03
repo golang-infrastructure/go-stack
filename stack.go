@@ -21,8 +21,8 @@ type Stack[T any] interface {
 	// IsNotEmpty 栈是否不为空
 	IsNotEmpty() bool
 
-	// Len 返回栈中元素的个数
-	Len() int
+	// Size 返回栈中元素的个数
+	Size() int
 
 	// Clear 清空栈
 	Clear() error

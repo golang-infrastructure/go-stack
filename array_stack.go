@@ -40,7 +40,8 @@ func (x *ArrayStack[T]) Pop() T {
 
 func (x *ArrayStack[T]) PopE() (T, error) {
 	if x.topIndex == 0 {
-		return nil, ErrStackEmpty
+		var zero T
+		return zero, ErrStackEmpty
 	}
 	value := x.slice[x.topIndex]
 	x.topIndex--
@@ -54,7 +55,8 @@ func (x *ArrayStack[T]) Peek() T {
 
 func (x *ArrayStack[T]) PeekE() (T, error) {
 	if x.topIndex == 0 {
-		return nil, ErrStackEmpty
+		var zero T
+		return zero , ErrStackEmpty
 	}
 	return x.slice[x.topIndex], nil
 }
@@ -67,7 +69,7 @@ func (x *ArrayStack[T]) IsNotEmpty() bool {
 	return x.topIndex != 0
 }
 
-func (x *ArrayStack[T]) Len() int {
+func (x *ArrayStack[T]) Size() int {
 	return x.topIndex
 }
 
