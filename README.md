@@ -1,6 +1,6 @@
 # Go Stack 
 
-# 一、这是什么？为什么使用它？优势是啥？
+# 一、这是什么？为什么选它？优势是啥？
 
 这个项目是各种类型的栈的Go语言实现版本。
 
@@ -27,24 +27,20 @@ go get github.com/CC11001100/go-stack
 
 ### 一览表
 
-| Struct名称             | 线程安全性 | 阻塞性 | 特有特性 |
-| ---------------------- | :--------: | :----: | -------- |
-| ArrayStack[T any]      |     ×      |   ×    |          |
-| SyncArrayStack[T any]  |     √      |   ×    |          |
-| LinkedStack[T any]     |     ×      |   ×    |          |
-| SyncLinkedStack[T any] |     √      |   ×    |          |
-| MinStack[T any]        |     ×      |   ×    |          |
-| SyncMinStack[T any]    |     √      |   ×    |          |
-| MaxStack[T any]        |     ×      |   ×    |          |
-| SyncMaxStack [T any]   |     √      |   ×    |          |
-
-
+| Struct名称             | 线程安全性 | 阻塞性 | 特有特性           |
+| ---------------------- | :--------: | :----: | ------------------ |
+| ArrayStack[T any]      |     ×      |   ×    |                    |
+| SyncArrayStack[T any]  |     √      |   ×    |                    |
+| LinkedStack[T any]     |     ×      |   ×    |                    |
+| SyncLinkedStack[T any] |     √      |   ×    |                    |
+| MinStack[T any]        |     ×      |   ×    | O(1)获取栈中最小值 |
+| SyncMinStack[T any]    |     √      |   ×    | O(1)获取栈中最小值 |
+| MaxStack[T any]        |     ×      |   ×    | O(1)获取栈中最大值 |
+| SyncMaxStack [T any]   |     √      |   ×    | O(1)获取栈中最大值 |
 
 # 四、Interface: Stack 
 
-接口定义的接口定义
-
-
+接口`Stack[T any]`定义了一些所有的栈都会有的API。
 
 ## 入栈
 
@@ -52,7 +48,12 @@ go get github.com/CC11001100/go-stack
 Push(values ...T)
 ```
 
+Example:
 
+```go
+	stack := NewArrayStack[int]()
+	stack.Push(1)
+```
 
 ## 出栈
 
@@ -61,7 +62,41 @@ Pop() T
 PopE() (T, error)
 ```
 
+Pop Example:
 
+```go
+type User struct {
+	}
+	stack := NewArrayStack[*User]()
+	fmt.Println(stack.Pop())
+	u := &User{}
+	stack.Push(u)
+	fmt.Println(stack.Pop())
+	// Output:
+	// <nil>
+	// &{}
+```
+
+PopE Example:
+
+```go
+stack := NewArrayStack[int]()
+	element, err := stack.PopE()
+	if errors.Is(err, ErrStackEmpty) {
+		fmt.Println("stack empty!")
+	}
+
+	stack.Push(1)
+	element, err = stack.PopE()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println(element)
+	// Output:
+	// stack empty!
+	// 1
+```
 
 ## 查看栈顶元素
 
@@ -70,7 +105,41 @@ Peek() T
 PeekE() (T, error)
 ```
 
+Peek Example:
 
+```go
+	type User struct {
+	}
+	stack := NewArrayStack[*User]()
+	fmt.Println(stack.Peek())
+	u := &User{}
+	stack.Push(u)
+	fmt.Println(stack.Peek())
+	// Output:
+	// <nil>
+	// &{}
+```
+
+PeekE Example:
+
+```go
+stack := NewArrayStack[int]()
+	element, err := stack.PeekE()
+	if errors.Is(err, ErrStackEmpty) {
+		fmt.Println("stack empty!")
+	}
+
+	stack.Push(1)
+	element, err = stack.PeekE()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println(element)
+	// Output:
+	// stack empty!
+	// 1
+```
 
 ## 判断栈是否空
 
@@ -79,7 +148,29 @@ IsEmpty() bool
 IsNotEmpty() bool
 ```
 
+IsEmpty Example:
 
+```go
+	stack := NewArrayStack[int]()
+	fmt.Println(stack.IsEmpty())
+	stack.Push(1)
+	fmt.Println(stack.IsEmpty())
+	// Output:
+	// true
+	// false
+```
+
+IsNotEmpty Example:
+
+```go
+	stack := NewArrayStack[int]()
+	fmt.Println(stack.IsNotEmpty())
+	stack.Push(1)
+	fmt.Println(stack.IsNotEmpty())
+	// Output:
+	// false
+	// true
+```
 
 ## 栈中元素个数
 
@@ -87,7 +178,15 @@ IsNotEmpty() bool
 Size() int
 ```
 
+Example:
 
+```go
+	stack := NewArrayStack[int]()
+	stack.Push(1)
+	fmt.Println(stack.Size())
+	// Output:
+	// 1
+```
 
 ## 清空栈
 
@@ -95,55 +194,162 @@ Size() int
 Clear() 
 ```
 
+Example:
 
+```go
+	stack := NewArrayStack[int]()
+	stack.Push(1)
+	fmt.Println(stack.Size())
+	stack.Clear()
+	fmt.Println(stack.Size())
+	// Output:
+	// 1
+	// 0
+```
 
-## ArrayStack
+## String
 
-数组实现的栈适合频繁入栈出栈的操作
+把栈转为String，一般用于debug之类的把栈中所有元素可视化。
 
-### 数组缩容
+Example:
 
-可能会存在的坑：类似于GO内置的map，默认情况下ArrayStack底层的数组也是只增长不缩容的，如果你的栈中的元素的个数具有先是很多，然后一直保持在一个较少的样子，建议在栈相对平稳之后调用TrimArray方法来让底层的数组释放掉短时间内不会再使用的空间。
+```go
+	stack := NewArrayStack[int]()
+	stack.Push(1)
+	fmt.Println(stack.String())
+	// Output:
+	// [1]
+```
 
-### 数组扩容到指定长度
+# ArrayStack
 
-允许对底层数组进行一些微操。
+基于数组实现的栈。
 
+Example:
 
+```go
+	stack := NewArrayStack[int]()
+	fmt.Println(stack.String())
+	// Output:
+	// []
+```
 
-## SyncArrayStack
+# LinkedStack
 
-## LinkedStack
+基于链表实现的栈。
 
-## SyncLinkedStack
+Example：
 
-
+```go
+	stack := NewLinkedStack[int]()
+	fmt.Println(stack.String())
+	// Output:
+	// []
+```
 
 # 五、最大栈 & 最小栈
 
-## MinStack
+## MinStack && SyncMinStack
 
-## SyncMinStack
+相较于Stack接口增加了两个方法用于O(1)获取栈中所有元素的最小值：
 
-## MaxStack
+```go
+GetMin() T
+GetMinE() (T, error)
+```
 
-SyncMaxStack 
+GetMin Example:
 
+```go
+	stack := NewSyncMinStack[int](func(a, b int) int { return a - b })
 
+	_, err := stack.GetMinE()
+	assert.ErrorIs(t, err, ErrStackEmpty)
 
-# 六、阻塞栈
+	stack.Push(10)
+	stack.Push(7)
+	stack.Push(9)
+	element, err := stack.GetMinE()
+	assert.Nil(t, err)
+	assert.Equal(t, 7, element)
+```
 
-因为仅当多个协程操作同一个栈时才需要考虑阻塞的情况，所以阻塞栈都是线程安全的。
+GetMinE Example:
 
+```go
+stack := NewSyncMinStack[int](func(a, b int) int { return a - b })
 
+	_, err := stack.GetMinE()
+	if errors.Is(err, ErrStackEmpty) {
+		fmt.Println("stack empty!")
+	}
 
+	stack.Push(10)
+	stack.Push(7)
+	stack.Push(9)
+	element, err := stack.GetMinE()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println(element)
+	// Output:
+	// stack empty!
+	// 7
+```
 
+## MaxStack && SyncMaxStack 
+
+相较于Stack接口增加了两个方法用于O(1)获取栈中所有元素的最小值：
+
+```go
+GetMax() T 
+GetMaxE() (T, error) 
+```
+
+GetMax Example:
+
+```go
+	stack := NewSyncMaxStack[int](func(a, b int) int { return a - b })
+
+	_, err := stack.GetMaxE()
+	assert.ErrorIs(t, err, ErrStackEmpty)
+
+	stack.Push(10)
+	stack.Push(7)
+	stack.Push(9)
+	element, err := stack.GetMaxE()
+	assert.Nil(t, err)
+	assert.Equal(t, 10, element)
+```
+
+GetMaxE Example:
+
+```go
+	stack := NewSyncMaxStack[int](func(a, b int) int { return a - b })
+
+	_, err := stack.GetMaxE()
+	if errors.Is(err, ErrStackEmpty) {
+		fmt.Println("stack empty!")
+	}
+
+	stack.Push(10)
+	stack.Push(7)
+	stack.Push(9)
+	element, err := stack.GetMaxE()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println(element)
+	// Output:
+	// stack empty!
+	// 10
+```
 
 # TODO 
 
-TODO 2022-10-22 02:07:40 Code Review  
-TODO 2022-10-22 02:04:55 测试  
-TODO 2022-10-22 02:03:14 编写文档   
+实现阻塞栈，因为仅当多个协程操作同一个栈时才需要考虑阻塞的情况，所以阻塞栈都是线程安全的。
 
 
 
