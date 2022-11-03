@@ -16,10 +16,10 @@ func NewSyncMaxStack[T any](comparator Comparator[T]) *SyncMaxStack[T] {
 	}
 }
 
-func (x *SyncMaxStack[T]) Push(values ...T) error {
+func (x *SyncMaxStack[T]) Push(values ...T) {
 	x.lock.Lock()
 	defer x.lock.Unlock()
-	return x.stack.Push(values...)
+	x.stack.Push(values...)
 }
 
 func (x *SyncMaxStack[T]) Pop() T {
@@ -64,10 +64,10 @@ func (x *SyncMaxStack[T]) Size() int {
 	return x.stack.Size()
 }
 
-func (x *SyncMaxStack[T]) Clear() error {
+func (x *SyncMaxStack[T]) Clear()  {
 	x.lock.Lock()
 	defer x.lock.Unlock()
-	return x.stack.Clear()
+	x.stack.Clear()
 }
 
 func (x *SyncMaxStack[T]) String() string {

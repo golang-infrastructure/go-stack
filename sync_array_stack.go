@@ -16,10 +16,10 @@ func NewSyncArrayStack[T any]() *SyncArrayStack[T] {
 	}
 }
 
-func (x *SyncArrayStack[T]) Push(values ...T) error {
+func (x *SyncArrayStack[T]) Push(values ...T) {
 	x.lock.Lock()
 	defer x.lock.Unlock()
-	return x.stack.Push(values...)
+	x.stack.Push(values...)
 }
 
 func (x *SyncArrayStack[T]) Pop() T {
@@ -64,10 +64,10 @@ func (x *SyncArrayStack[T]) Size() int {
 	return x.stack.Size()
 }
 
-func (x *SyncArrayStack[T]) Clear() error {
+func (x *SyncArrayStack[T]) Clear()  {
 	x.lock.Lock()
 	defer x.lock.Unlock()
-	return x.stack.Clear()
+	x.stack.Clear()
 }
 
 func (x *SyncArrayStack[T]) String() string {

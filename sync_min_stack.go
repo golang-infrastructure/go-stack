@@ -16,10 +16,10 @@ func NewSyncMinStack[T any](comparator Comparator[T]) *SyncMinStack[T] {
 	}
 }
 
-func (x *SyncMinStack[T]) Push(values ...T) error {
+func (x *SyncMinStack[T]) Push(values ...T) {
 	x.lock.Lock()
 	defer x.lock.Unlock()
-	return x.stack.Push(values...)
+	x.stack.Push(values...)
 }
 
 func (x *SyncMinStack[T]) Pop() T {
@@ -64,10 +64,10 @@ func (x *SyncMinStack[T]) Size() int {
 	return x.stack.Size()
 }
 
-func (x *SyncMinStack[T]) Clear() error {
+func (x *SyncMinStack[T]) Clear()  {
 	x.lock.Lock()
 	defer x.lock.Unlock()
-	return x.stack.Clear()
+	x.stack.Clear()
 }
 
 func (x *SyncMinStack[T]) String() string {

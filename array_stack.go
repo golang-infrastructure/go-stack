@@ -21,7 +21,7 @@ func NewArrayStack[T any]() *ArrayStack[T] {
 	}
 }
 
-func (x *ArrayStack[T]) Push(values ...T) error {
+func (x *ArrayStack[T]) Push(values ...T) {
 	for _, value := range values {
 		if x.topIndex < len(x.slice) {
 			x.slice[x.topIndex] = value
@@ -30,7 +30,6 @@ func (x *ArrayStack[T]) Push(values ...T) error {
 		}
 		x.topIndex++
 	}
-	return nil
 }
 
 func (x *ArrayStack[T]) Pop() T {
@@ -73,10 +72,9 @@ func (x *ArrayStack[T]) Size() int {
 	return x.topIndex
 }
 
-func (x *ArrayStack[T]) Clear() error {
+func (x *ArrayStack[T]) Clear()  {
 	x.topIndex = 0
 	x.slice = make([]T, 0)
-	return nil
 }
 
 func (x *ArrayStack[T]) String() string {

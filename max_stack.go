@@ -14,7 +14,7 @@ func NewMaxStack[T any](comparator Comparator[T]) *MaxStack[T] {
 	}
 }
 
-func (x *MaxStack[T]) Push(values ...T) error {
+func (x *MaxStack[T]) Push(values ...T) {
 	for _, value := range values {
 		node := &MaxNode[T]{
 			value: value,
@@ -29,11 +29,8 @@ func (x *MaxStack[T]) Push(values ...T) error {
 		} else {
 			node.max = value
 		}
-		if err := x.stack.Push(node); err != nil {
-			return err
-		}
+		x.stack.Push(node)
 	}
-	return nil
 }
 
 func (x *MaxStack[T]) Pop() T {
@@ -76,8 +73,8 @@ func (x *MaxStack[T]) Size() int {
 	return x.stack.Size()
 }
 
-func (x *MaxStack[T]) Clear() error {
-	return x.stack.Clear()
+func (x *MaxStack[T]) Clear()  {
+	x.stack.Clear()
 }
 
 func (x *MaxStack[T]) String() string {

@@ -4,7 +4,7 @@ package stack
 type Stack[T any] interface {
 
 	// Push 往栈中加入元素，可以一次增加多个
-	Push(values ...T) error
+	Push(values ...T)
 
 	// Pop 弹出栈顶元素，如果栈为空的话返回栈元素T对应的零值
 	Pop() T
@@ -25,7 +25,7 @@ type Stack[T any] interface {
 	Size() int
 
 	// Clear 清空栈
-	Clear() error
+	Clear() 
 
 	// String 把栈打印为字符串，一般debug之类的可能会用得到
 	String() string

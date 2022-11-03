@@ -14,7 +14,7 @@ func NewMinStack[T any](comparator Comparator[T]) *MinStack[T] {
 	}
 }
 
-func (x *MinStack[T]) Push(values ...T) error {
+func (x *MinStack[T]) Push(values ...T) {
 	for _, value := range values {
 		node := &MinNode[T]{
 			value: value,
@@ -29,11 +29,8 @@ func (x *MinStack[T]) Push(values ...T) error {
 		} else {
 			node.min = value
 		}
-		if err := x.stack.Push(node); err != nil {
-			return err
-		}
+		x.stack.Push(node)
 	}
-	return nil
 }
 
 func (x *MinStack[T]) Pop() T {
@@ -76,8 +73,8 @@ func (x *MinStack[T]) Size() int {
 	return x.stack.Size()
 }
 
-func (x *MinStack[T]) Clear() error {
-	return x.stack.Clear()
+func (x *MinStack[T]) Clear()  {
+	x.stack.Clear()
 }
 
 func (x *MinStack[T]) String() string {

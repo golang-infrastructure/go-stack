@@ -49,7 +49,7 @@ go get github.com/CC11001100/go-stack
 ## 入栈
 
 ```
-Push(values ...T) error
+Push(values ...T)
 ```
 
 
@@ -92,7 +92,7 @@ Size() int
 ## 清空栈
 
 ```
-Clear() error
+Clear() 
 ```
 
 
