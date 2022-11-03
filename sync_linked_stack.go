@@ -36,31 +36,31 @@ func (x *SyncLinkedStack[T]) PopE() (T, error) {
 
 func (x *SyncLinkedStack[T]) Peek() T {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.Peek()
 }
 
 func (x *SyncLinkedStack[T]) PeekE() (T, error) {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.PeekE()
 }
 
 func (x *SyncLinkedStack[T]) IsEmpty() bool {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.IsEmpty()
 }
 
 func (x *SyncLinkedStack[T]) IsNotEmpty() bool {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.IsNotEmpty()
 }
 
 func (x *SyncLinkedStack[T]) Size() int {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.Size()
 }
 
@@ -72,6 +72,6 @@ func (x *SyncLinkedStack[T]) Clear()  {
 
 func (x *SyncLinkedStack[T]) String() string {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.String()
 }
