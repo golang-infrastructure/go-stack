@@ -1,11 +1,17 @@
 package stack
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
+
+// EmptyStackTopIndex 当栈为空的时候栈顶的指针指向的下标位置
+const EmptyStackTopIndex = -1
 
 // ArrayStack 数组实现的栈
 type ArrayStack[T any] struct {
 
-	// 栈顶指针
+	// 栈顶指针，始终指向栈顶元素所在的下标
 	topIndex int
 
 	// 栈中的元素，栈底是0，会不断往上弹
@@ -17,18 +23,19 @@ var _ Stack[any] = &ArrayStack[any]{}
 func NewArrayStack[T any]() *ArrayStack[T] {
 	return &ArrayStack[T]{
 		slice:    make([]T, 0),
-		topIndex: 0,
+		topIndex: EmptyStackTopIndex,
 	}
 }
 
 func (x *ArrayStack[T]) Push(values ...T) {
 	for _, value := range values {
-		if x.topIndex < len(x.slice) {
-			x.slice[x.topIndex] = value
+		nextIndex := x.topIndex + 1
+		if nextIndex < len(x.slice) {
+			x.slice[nextIndex] = value
 		} else {
 			x.slice = append(x.slice, value)
 		}
-		x.topIndex++
+		x.topIndex = nextIndex
 	}
 }
 
@@ -38,7 +45,7 @@ func (x *ArrayStack[T]) Pop() T {
 }
 
 func (x *ArrayStack[T]) PopE() (T, error) {
-	if x.topIndex == 0 {
+	if x.topIndex == EmptyStackTopIndex {
 		var zero T
 		return zero, ErrStackEmpty
 	}
@@ -53,30 +60,38 @@ func (x *ArrayStack[T]) Peek() T {
 }
 
 func (x *ArrayStack[T]) PeekE() (T, error) {
-	if x.topIndex == 0 {
+	if x.topIndex == EmptyStackTopIndex {
 		var zero T
-		return zero , ErrStackEmpty
+		return zero, ErrStackEmpty
 	}
 	return x.slice[x.topIndex], nil
 }
 
 func (x *ArrayStack[T]) IsEmpty() bool {
-	return x.topIndex == 0
+	return x.topIndex == EmptyStackTopIndex
 }
 
 func (x *ArrayStack[T]) IsNotEmpty() bool {
-	return x.topIndex != 0
+	return x.topIndex != EmptyStackTopIndex
 }
 
 func (x *ArrayStack[T]) Size() int {
-	return x.topIndex
+	return x.topIndex + 1
 }
 
-func (x *ArrayStack[T]) Clear()  {
-	x.topIndex = 0
+func (x *ArrayStack[T]) Clear() {
+	x.topIndex = EmptyStackTopIndex
 	x.slice = make([]T, 0)
 }
 
 func (x *ArrayStack[T]) String() string {
-	return fmt.Sprintf("%#v", x)
+	sb := strings.Builder{}
+	sb.WriteString("[")
+	currentIndex := x.topIndex
+	for currentIndex != EmptyStackTopIndex {
+		sb.WriteString(fmt.Sprintf("%#v", x.slice[currentIndex]))
+		currentIndex--
+	}
+	sb.WriteString("]")
+	return sb.String()
 }
