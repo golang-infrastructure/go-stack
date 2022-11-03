@@ -36,35 +36,35 @@ func (x *SyncArrayStack[T]) PopE() (T, error) {
 
 func (x *SyncArrayStack[T]) Peek() T {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.Peek()
 }
 
 func (x *SyncArrayStack[T]) PeekE() (T, error) {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.PeekE()
 }
 
 func (x *SyncArrayStack[T]) IsEmpty() bool {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.IsEmpty()
 }
 
 func (x *SyncArrayStack[T]) IsNotEmpty() bool {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.IsNotEmpty()
 }
 
 func (x *SyncArrayStack[T]) Size() int {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.Size()
 }
 
-func (x *SyncArrayStack[T]) Clear()  {
+func (x *SyncArrayStack[T]) Clear() {
 	x.lock.Lock()
 	defer x.lock.Unlock()
 	x.stack.Clear()
@@ -72,6 +72,6 @@ func (x *SyncArrayStack[T]) Clear()  {
 
 func (x *SyncArrayStack[T]) String() string {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.String()
 }
