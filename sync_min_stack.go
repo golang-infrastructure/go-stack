@@ -36,35 +36,35 @@ func (x *SyncMinStack[T]) PopE() (T, error) {
 
 func (x *SyncMinStack[T]) Peek() T {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.Peek()
 }
 
 func (x *SyncMinStack[T]) PeekE() (T, error) {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.PeekE()
 }
 
 func (x *SyncMinStack[T]) IsEmpty() bool {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.IsEmpty()
 }
 
 func (x *SyncMinStack[T]) IsNotEmpty() bool {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.IsNotEmpty()
 }
 
 func (x *SyncMinStack[T]) Size() int {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.Size()
 }
 
-func (x *SyncMinStack[T]) Clear()  {
+func (x *SyncMinStack[T]) Clear() {
 	x.lock.Lock()
 	defer x.lock.Unlock()
 	x.stack.Clear()
@@ -72,18 +72,18 @@ func (x *SyncMinStack[T]) Clear()  {
 
 func (x *SyncMinStack[T]) String() string {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.String()
 }
 
 func (x *SyncMinStack[T]) GetMin() T {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.GetMin()
 }
 
 func (x *SyncMinStack[T]) GetMinE() (T, error) {
 	x.lock.RLock()
-	defer x.lock.RLock()
+	defer x.lock.RUnlock()
 	return x.stack.GetMinE()
 }
