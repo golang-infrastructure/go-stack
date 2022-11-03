@@ -51,8 +51,8 @@ Push(values ...T)
 Example:
 
 ```go
-	stack := NewArrayStack[int]()
-	stack.Push(1)
+stack := NewArrayStack[int]()
+stack.Push(1)
 ```
 
 ## 出栈
@@ -66,36 +66,36 @@ Pop Example:
 
 ```go
 type User struct {
-	}
-	stack := NewArrayStack[*User]()
-	fmt.Println(stack.Pop())
-	u := &User{}
-	stack.Push(u)
-	fmt.Println(stack.Pop())
-	// Output:
-	// <nil>
-	// &{}
+}
+stack := NewArrayStack[*User]()
+fmt.Println(stack.Pop())
+u := &User{}
+stack.Push(u)
+fmt.Println(stack.Pop())
+// Output:
+// <nil>
+// &{}
 ```
 
 PopE Example:
 
 ```go
 stack := NewArrayStack[int]()
-	element, err := stack.PopE()
-	if errors.Is(err, ErrStackEmpty) {
-		fmt.Println("stack empty!")
-	}
+element, err := stack.PopE()
+if errors.Is(err, ErrStackEmpty) {
+    fmt.Println("stack empty!")
+}
 
-	stack.Push(1)
-	element, err = stack.PopE()
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
-	fmt.Println(element)
-	// Output:
-	// stack empty!
-	// 1
+stack.Push(1)
+element, err = stack.PopE()
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+fmt.Println(element)
+// Output:
+// stack empty!
+// 1
 ```
 
 ## 查看栈顶元素
@@ -108,37 +108,37 @@ PeekE() (T, error)
 Peek Example:
 
 ```go
-	type User struct {
-	}
-	stack := NewArrayStack[*User]()
-	fmt.Println(stack.Peek())
-	u := &User{}
-	stack.Push(u)
-	fmt.Println(stack.Peek())
-	// Output:
-	// <nil>
-	// &{}
+type User struct {
+}
+stack := NewArrayStack[*User]()
+fmt.Println(stack.Peek())
+u := &User{}
+stack.Push(u)
+fmt.Println(stack.Peek())
+// Output:
+// <nil>
+// &{}
 ```
 
 PeekE Example:
 
 ```go
 stack := NewArrayStack[int]()
-	element, err := stack.PeekE()
-	if errors.Is(err, ErrStackEmpty) {
-		fmt.Println("stack empty!")
-	}
+element, err := stack.PeekE()
+if errors.Is(err, ErrStackEmpty) {
+    fmt.Println("stack empty!")
+}
 
-	stack.Push(1)
-	element, err = stack.PeekE()
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
-	fmt.Println(element)
-	// Output:
-	// stack empty!
-	// 1
+stack.Push(1)
+element, err = stack.PeekE()
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+fmt.Println(element)
+// Output:
+// stack empty!
+// 1
 ```
 
 ## 判断栈是否空
@@ -151,25 +151,25 @@ IsNotEmpty() bool
 IsEmpty Example:
 
 ```go
-	stack := NewArrayStack[int]()
-	fmt.Println(stack.IsEmpty())
-	stack.Push(1)
-	fmt.Println(stack.IsEmpty())
-	// Output:
-	// true
-	// false
+stack := NewArrayStack[int]()
+fmt.Println(stack.IsEmpty())
+stack.Push(1)
+fmt.Println(stack.IsEmpty())
+// Output:
+// true
+// false
 ```
 
 IsNotEmpty Example:
 
 ```go
-	stack := NewArrayStack[int]()
-	fmt.Println(stack.IsNotEmpty())
-	stack.Push(1)
-	fmt.Println(stack.IsNotEmpty())
-	// Output:
-	// false
-	// true
+stack := NewArrayStack[int]()
+fmt.Println(stack.IsNotEmpty())
+stack.Push(1)
+fmt.Println(stack.IsNotEmpty())
+// Output:
+// false
+// true
 ```
 
 ## 栈中元素个数
@@ -181,11 +181,11 @@ Size() int
 Example:
 
 ```go
-	stack := NewArrayStack[int]()
-	stack.Push(1)
-	fmt.Println(stack.Size())
-	// Output:
-	// 1
+stack := NewArrayStack[int]()
+stack.Push(1)
+fmt.Println(stack.Size())
+// Output:
+// 1
 ```
 
 ## 清空栈
@@ -197,14 +197,14 @@ Clear()
 Example:
 
 ```go
-	stack := NewArrayStack[int]()
-	stack.Push(1)
-	fmt.Println(stack.Size())
-	stack.Clear()
-	fmt.Println(stack.Size())
-	// Output:
-	// 1
-	// 0
+stack := NewArrayStack[int]()
+stack.Push(1)
+fmt.Println(stack.Size())
+stack.Clear()
+fmt.Println(stack.Size())
+// Output:
+// 1
+// 0
 ```
 
 ## String
@@ -214,11 +214,11 @@ Example:
 Example:
 
 ```go
-	stack := NewArrayStack[int]()
-	stack.Push(1)
-	fmt.Println(stack.String())
-	// Output:
-	// [1]
+stack := NewArrayStack[int]()
+stack.Push(1)
+fmt.Println(stack.String())
+// Output:
+// [1]
 ```
 
 # ArrayStack
@@ -228,10 +228,10 @@ Example:
 Example:
 
 ```go
-	stack := NewArrayStack[int]()
-	fmt.Println(stack.String())
-	// Output:
-	// []
+stack := NewArrayStack[int]()
+fmt.Println(stack.String())
+// Output:
+// []
 ```
 
 # LinkedStack
@@ -241,10 +241,10 @@ Example:
 Example：
 
 ```go
-	stack := NewLinkedStack[int]()
-	fmt.Println(stack.String())
-	// Output:
-	// []
+stack := NewLinkedStack[int]()
+fmt.Println(stack.String())
+// Output:
+// []
 ```
 
 # 五、最大栈 & 最小栈
@@ -261,17 +261,17 @@ GetMinE() (T, error)
 GetMin Example:
 
 ```go
-	stack := NewSyncMinStack[int](func(a, b int) int { return a - b })
+stack := NewSyncMinStack[int](func(a, b int) int { return a - b })
 
-	_, err := stack.GetMinE()
-	assert.ErrorIs(t, err, ErrStackEmpty)
+_, err := stack.GetMinE()
+assert.ErrorIs(t, err, ErrStackEmpty)
 
-	stack.Push(10)
-	stack.Push(7)
-	stack.Push(9)
-	element, err := stack.GetMinE()
-	assert.Nil(t, err)
-	assert.Equal(t, 7, element)
+stack.Push(10)
+stack.Push(7)
+stack.Push(9)
+element, err := stack.GetMinE()
+assert.Nil(t, err)
+assert.Equal(t, 7, element)
 ```
 
 GetMinE Example:
@@ -279,23 +279,23 @@ GetMinE Example:
 ```go
 stack := NewSyncMinStack[int](func(a, b int) int { return a - b })
 
-	_, err := stack.GetMinE()
-	if errors.Is(err, ErrStackEmpty) {
-		fmt.Println("stack empty!")
-	}
+_, err := stack.GetMinE()
+if errors.Is(err, ErrStackEmpty) {
+    fmt.Println("stack empty!")
+}
 
-	stack.Push(10)
-	stack.Push(7)
-	stack.Push(9)
-	element, err := stack.GetMinE()
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
-	fmt.Println(element)
-	// Output:
-	// stack empty!
-	// 7
+stack.Push(10)
+stack.Push(7)
+stack.Push(9)
+element, err := stack.GetMinE()
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+fmt.Println(element)
+// Output:
+// stack empty!
+// 7
 ```
 
 ## MaxStack && SyncMaxStack 
@@ -310,41 +310,41 @@ GetMaxE() (T, error)
 GetMax Example:
 
 ```go
-	stack := NewSyncMaxStack[int](func(a, b int) int { return a - b })
+stack := NewSyncMaxStack[int](func(a, b int) int { return a - b })
 
-	_, err := stack.GetMaxE()
-	assert.ErrorIs(t, err, ErrStackEmpty)
+_, err := stack.GetMaxE()
+assert.ErrorIs(t, err, ErrStackEmpty)
 
-	stack.Push(10)
-	stack.Push(7)
-	stack.Push(9)
-	element, err := stack.GetMaxE()
-	assert.Nil(t, err)
-	assert.Equal(t, 10, element)
+stack.Push(10)
+stack.Push(7)
+stack.Push(9)
+element, err := stack.GetMaxE()
+assert.Nil(t, err)
+assert.Equal(t, 10, element)
 ```
 
 GetMaxE Example:
 
 ```go
-	stack := NewSyncMaxStack[int](func(a, b int) int { return a - b })
+stack := NewSyncMaxStack[int](func(a, b int) int { return a - b })
 
-	_, err := stack.GetMaxE()
-	if errors.Is(err, ErrStackEmpty) {
-		fmt.Println("stack empty!")
-	}
+_, err := stack.GetMaxE()
+if errors.Is(err, ErrStackEmpty) {
+    fmt.Println("stack empty!")
+}
 
-	stack.Push(10)
-	stack.Push(7)
-	stack.Push(9)
-	element, err := stack.GetMaxE()
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
-	fmt.Println(element)
-	// Output:
-	// stack empty!
-	// 10
+stack.Push(10)
+stack.Push(7)
+stack.Push(9)
+element, err := stack.GetMaxE()
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+fmt.Println(element)
+// Output:
+// stack empty!
+// 10
 ```
 
 # TODO 
