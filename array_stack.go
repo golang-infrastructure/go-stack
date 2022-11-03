@@ -1,5 +1,7 @@
 package stack
 
+import "fmt"
+
 // ArrayStack 数组实现的栈
 type ArrayStack[T any] struct {
 
@@ -76,6 +78,5 @@ func (x *ArrayStack[T]) Clear() error {
 }
 
 func (x *ArrayStack[T]) String() string {
-	//TODO implement me
-	panic("implement me")
+	return fmt.Sprintf("%#v", x)
 }
