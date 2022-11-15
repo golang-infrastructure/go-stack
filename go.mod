@@ -1,4 +1,4 @@
-module github.com/CC11001100/go-stack
+module github.com/golang-infrastructure/go-stack
 
 go 1.18
 

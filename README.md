@@ -19,7 +19,7 @@
 # 二、安装 
 
 ```bash
-go get github.com/CC11001100/go-stack
+go get github.com/golang-infrastructure/go-stack
 ```
 
 # 三、目前实现的栈

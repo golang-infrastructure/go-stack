@@ -18,7 +18,7 @@ This project is a Go language implementation version of various types of stacks.
 # 2. Installation
 
 ```bash
-go get github.com/CC11001100/go-stack
+go get github.com/golang-infrastructure/go-stack
 ```
 # 3. Currently implemented stack
 
