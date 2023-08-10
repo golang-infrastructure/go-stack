@@ -1,4 +1,4 @@
-package stack
+package stacks
 
 // Stack 定义栈的API
 type Stack[T any] interface {

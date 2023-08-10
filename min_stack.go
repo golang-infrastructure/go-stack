@@ -1,4 +1,4 @@
-package stack
+package stacks
 
 type MinStack[T any] struct {
 	comparator Comparator[T]

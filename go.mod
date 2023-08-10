@@ -1,4 +1,4 @@
-module github.com/golang-infrastructure/go-stack
+module github.com/golang-infrastructure/go-stacks
 
 go 1.18
 

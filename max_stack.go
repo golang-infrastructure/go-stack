@@ -1,4 +1,4 @@
-package stack
+package stacks
 
 type MaxStack[T any] struct {
 	comparator Comparator[T]
